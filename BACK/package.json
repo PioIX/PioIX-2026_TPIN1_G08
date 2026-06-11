@@ -7,7 +7,7 @@
     "pio": "nodemon --env-file=.pio.env index.js",
     "home": "nodemon --env-file=.home.env index.js"
   },
-  "author": "Telmo Pereyra",
+  "author": "Ratto-Benitez-Arismendi-Chiapara",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
