@@ -1,7 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Golwordlle</title>
+    
 </head>
+<head>
+    <title>Golwordlle</title>
+    <img src="" alt="">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .auth-container {
+            background-color: #ffffff;
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+            text-align: center;
+        }
+        .form-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+        }
+        .form-section:first-child {
+            border-bottom: 2px dashed #e2e8f0;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-registro { background-color: #28a745; }
+        .btn-login { background-color: #007bff; }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        
+        <div class="form-section" id="registro-section">
+            <h2>Probar Registro</h2>
+            <form id="form-registro">
+                <div class="form-group">
+                    <label for="reg-username">Username:</label>
+                    <input type="text" id="reg-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email:</label>
+                    <input type="email" id="reg-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Contraseña:</label>
+                    <input type="password" id="reg-password" required>
+                </div>
+                <button type="button" class="btn-registro" onclick=" register()">Crear Cuenta</button>
+            </form>
+        </div>
+
+        <div class="form-section" id="login-section">
+            <h2>Probar Login</h2>
+            <form id="form-login">
+                <div class="form-group">
+                    <label for="log-username">Username:</label>
+                    <input type="text" id="log-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="log-password">Contraseña:</label>
+                    <input type="password" id="log-password" required>
+                </div>
+                <button type="button" class="btn-login" onclick= "login()">Iniciar Sesión</button>
+            </form>
+        </div>
+
+    </div>
+    <script src="logic.js"></script>
+    <script src="dom.js"></script>
+
+</body>
+</html>

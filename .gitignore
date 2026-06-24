@@ -1,0 +1,7 @@
+.env
+*.env
+/node_modules
+*/node_mudules
+/BACK/node_modules
+/BACK/node_modules/*
+node_modules/
