@@ -32,12 +32,15 @@ app.post('/Usuarios', async function(req,res) {
     console.log(UsuarioExistente)
     if (UsuarioExistente.length > 0) {
         res.send("El usuario ya existe");
+        alert ("El usuario ya existe")
+
     } else {
         await realizarQuery(`
         INSERT INTO Students ("id_usuario","username","password","email","es_admin","fecha_registro") VALUES
         (${req.body.id_usuario},${req.body.username},${req.body.password},${req.body.email},${req.body.es_admin},${req.body.fecha_registro});
     `)
         res.send({message: "Usuario agregado"})
+        alert ("Este usuario fue registrado exitosamente")
     }
 })  
 
@@ -47,16 +50,20 @@ app.post('/registro', async (req, res) => {
     const es_admin = 0
     const fecha_registro = new Date().toISOString().slice(0, 19).replace('T', ' '); // Formato YYYY-MM-DD HH:MM:SS
 
-     let UsuarioExistente = await realizarQuery(`SELECT username FROM Usuarios WHERE username ="${req.body.username}"`);
-    console.log("UsuarioExistente:", UsuarioExistente);
-    if (UsuarioExistente.length > 0) {
+     let usuarioExistente = await realizarQuery(`SELECT username FROM Usuarios WHERE username ="${req.body.username}"`);
+    console.log("UsuarioExistente:", usuarioExistente);
+    console.log("contenido del array: ", usuarioExistente[0])
+    console.log ("contenido del json", usuarioExistente[0].username)
+
+     if (usuarioExistente.length > 0) {
         res.send("El usuario ya existe");
+        alert ("El usuario ya existe")
     }
 
     
     await realizarQuery(`INSERT INTO Usuarios (username,password,email,es_admin,fecha_registro) VALUES
         ("${req.body.username}","${req.body.password}","${req.body.email}","${es_admin}","${fecha_registro}");
-    `)
+    `) 
    
 });
 //prueba logins
