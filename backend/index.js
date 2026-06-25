@@ -79,3 +79,6 @@ app.post('/login', (req, res) => {
     });
 });
 
+//wait realizarQuery(`INSERT INTO Usuarios (username,password) VALUES
+        ("${req.body.username}","${req.body.password}","${req.body.email}","${es_admin}","${fecha_registro}");
+   // `)
