@@ -2,6 +2,6 @@
 *.env
 /node_modules
 */node_mudules
-/BACK/node_modules
-/BACK/node_modules/*
+/backend/node_modules
+/frontend/node_modules
 node_modules/
