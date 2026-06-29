@@ -17,6 +17,8 @@ app.listen(port, function(){
 });
 
 app.get('/', function(req, res){
+
+    console.log()
     res.status(200).send({
         message: 'GET Home route working fine!'
     });
@@ -53,11 +55,9 @@ app.post('/registro', async (req, res) => {
      let usuarioExistente = await realizarQuery(`SELECT username FROM Usuarios WHERE username ="${req.body.username}"`);
     console.log("UsuarioExistente:", usuarioExistente);
     console.log("contenido del array: ", usuarioExistente[0])
-    console.log ("contenido del json", usuarioExistente[0].username)
 
      if (usuarioExistente.length > 0) {
         res.send("El usuario ya existe");
-        alert ("El usuario ya existe")
     }
 
     
@@ -66,26 +66,16 @@ app.post('/registro', async (req, res) => {
     `) 
    
 });
-//prueba logins
-app.post('/login', (req, res) => {
+
+app.post('/login', async(req, res) => {
+
+    console.log("entro a /login")
     const { username, password } = req.body;
 
     const query = 'SELECT * FROM Usuarios WHERE username = ? AND password = ?';
     
-    db.query(query, [username, password], (err, results) => {
-        if (err) {
-            console.error('Error en el login:', err);
-            return res.status(500).send('Error en el servidor.');
-        }
 
-        if (results.length > 0) {
-            res.send(`¡Login exitoso! Entraste como: ${results[0].username}`);
-        } else {
-            res.send('Usuario o contraseña incorrectos.');
-        }
-    });
-});
 
-//wait realizarQuery(`INSERT INTO Usuarios (username,password) VALUES
+        await realizarQuery('SELECT * FROM Usuarios WHERE username = usrname AND password = passsword');
         ("${req.body.username}","${req.body.password}","${req.body.email}","${es_admin}","${fecha_registro}");
-   // `)
+})
