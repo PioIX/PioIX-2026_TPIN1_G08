@@ -47,35 +47,70 @@ app.post('/Usuarios', async function(req,res) {
 })  
 
 app.post('/registro', async (req, res) => {
+
     console.log("POST /registro - Body:", req.body);
+
     const { username, email, password } = req.body;
-    const es_admin = 0
-    const fecha_registro = new Date().toISOString().slice(0, 19).replace('T', ' '); // Formato YYYY-MM-DD HH:MM:SS
 
-     let usuarioExistente = await realizarQuery(`SELECT username FROM Usuarios WHERE username ="${req.body.username}"`);
+    const es_admin = 0;
+
+    const fecha_registro = new Date().toISOString().slice(0,19).replace('T',' ');
+
+    let usuarioExistente = await realizarQuery(`
+        SELECT username
+        FROM Usuarios
+        WHERE username="${req.body.username}";
+    `);
+
     console.log("UsuarioExistente:", usuarioExistente);
-    console.log("contenido del array: ", usuarioExistente[0])
 
-     if (usuarioExistente.length > 0) {
-        res.send("El usuario ya existe");
+    if (usuarioExistente.length > 0) {
+        return res.json({ mensaje: "El usuario ya existe" });
     }
 
-    
-    await realizarQuery(`INSERT INTO Usuarios (username,password,email,es_admin,fecha_registro) VALUES
+    await realizarQuery(`
+        INSERT INTO Usuarios
+        (username,password,email,es_admin,fecha_registro)
+        VALUES
         ("${req.body.username}","${req.body.password}","${req.body.email}","${es_admin}","${fecha_registro}");
-    `) 
-   
+    `);
+
+    res.json({ mensaje: "Usuario registrado correctamente" });
+
 });
 
-app.post('/login', async(req, res) => {
+app.post('/login', async (req, res) => {
 
-    console.log("entro a /login")
+    console.log("entro a /login");
+
     const { username, password } = req.body;
 
-    const query = 'SELECT * FROM Usuarios WHERE username = ? AND password = ?';
-    
+    let usuario = await realizarQuery(`
+        SELECT * FROM Usuarios
+        WHERE username="${username}" AND password="${password}";
+    `);
+
+    if (usuario.length > 0) {
+        res.json(usuario[0]);
+    } else {
+        res.status(404).json({ mensaje: "Usuario o contraseña incorrectos" });
+    }
+
+});
 
 
-        await realizarQuery('SELECT * FROM Usuarios WHERE username = usrname AND password = passsword');
-        ("${req.body.username}","${req.body.password}","${req.body.email}","${es_admin}","${fecha_registro}");
-})
+app.get("/palabra/:nivel", async(req,res)=>{
+
+    let nivel=req.params.nivel;
+
+    let palabra=await realizarQuery(`
+        SELECT *
+        FROM Palabras
+        WHERE id_categoria=${nivel}
+        ORDER BY RAND()
+        LIMIT 1
+    `);
+
+    res.json(palabra[0]);
+
+});

@@ -1,72 +1,158 @@
+let filaActual = 0;
+let palabraSecreta = "";
+let nivel = localStorage.getItem("nivel");
 
-async function login(usuario, password) {
-  //datos ingresados  
-  const datos = {
-    username: logUsername(),
-    password: logPassword()
-  }
+async function login() {
 
-  console.log("datos: ", datos)
+    const datos = {
+        username: logUsername(),
+        password: logPassword()
+    };
 
-    //base de daot
-    const response = await fetch('http://localhost:4000/login', {
-    method: "POST", //GET, POST, PUT o DELETE
-    headers: { //Esto va siempre, solo aclaro que va en tipo JSON
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(datos)
-    
-  })
+    const response = await fetch("http://localhost:4000/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+    });
 
-  console.log(response)
-  
-  for (let user of users) {
-    if (user.username === usuario) {
-      if (user.password === password) {
-        idUsuarioLogueado = user.id;
-        window.location.href = 'index1.html';
-      }
-      return 0;
+    let result = await response.json();
+
+    if (response.ok) {
+
+        localStorage.setItem("usuario", result.id_usuario);
+
+        window.location.href = "index1.html";
+
+    } else {
+
+        alert(result.mensaje);
+
     }
-  }
-  return -1;
+
 }
 
 async function register() {
-  // leer email, username, password por DOM
 
+    const datos = {
+        username: getUsername(),
+        password: getPassword(),
+        email: getEmail()
+    };
 
-  const datos = {
-    username: getUsername(),
-    password: getPassword(),
-    email: getEmail()
-  }
+    const response = await fetch("http://localhost:4000/registro", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+    });
 
-  const response = await fetch('http://localhost:4000/registro', {
-    method: "POST", //GET, POST, PUT o DELETE
-    headers: { //Esto va siempre, solo aclaro que va en tipo JSON
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(datos) //JSON.stringify convierte de objeto a string
-  })
+    let result = await response.json();
 
-  console.log(response) //Imprimo la respuesta en formato JSON
+    alert(result.mensaje);
 
-  let result = await response.json()//Desarma el json y lo arma como un objeto
-  console.log("RESULTADO: ", result)
-  //let nuevoUsuario = new User(username, email, password);
-  //users.push(nuevoUsuario);
-  //return nuevoUsuario.id;
-   window.location.href = "index1.html";
+    if (result.mensaje == "Usuario registrado correctamente") {
+
+        window.location.href = "index1.html";
+
+    }
+
 }
 
 function seleccionarNivel(nivel) {
-  alert('Seleccionaste el nivel: ' + nivel);
+
+    localStorage.setItem("nivel", nivel);
+
+    if (nivel == 1) {
+
+        window.location.href = "indexfacil.html";
+
+    } else {
+
+        window.location.href = "indexdificil.html";
+
+    }
+
 }
 
-//function cerrarSesion() {
- // alert('Cerrando sesión...');
- //  
-  
-//}
+function cerrarSesion() {
 
+    localStorage.removeItem("usuario");
+    localStorage.removeItem("nivel");
+
+    window.location.href = "index.html";
+
+}
+
+async function cargarPalabra() {
+
+    let response = await fetch(`http://localhost:4000/palabra/${nivel}`);
+
+    let result = await response.json();
+
+    palabraSecreta = result.palabra.toUpperCase();
+
+    console.log("Palabra secreta:", palabraSecreta);
+
+}
+
+function enviarPalabra() {
+
+    let palabra = document.getElementById("palabra").value.toUpperCase();
+
+    if (palabra.length != palabraSecreta.length) {
+
+        alert("Cantidad de letras incorrecta");
+        return;
+
+    }
+
+    for (let i = 0; i < palabra.length; i++) {
+
+        let casilla = document.getElementById(filaActual + "-" + i);
+
+        casilla.innerHTML = palabra[i];
+
+        if (palabra[i] == palabraSecreta[i]) {
+
+            casilla.bgColor = "green";
+
+        } else if (palabraSecreta.includes(palabra[i])) {
+
+            casilla.bgColor = "yellow";
+
+        } else {
+
+            casilla.bgColor = "gray";
+
+        }
+
+    }
+
+    if (palabra == palabraSecreta) {
+
+        alert("Ganaste");
+
+        return;
+
+    }
+
+    filaActual++;
+
+    document.getElementById("palabra").value = "";
+
+    if (filaActual == 6) {
+
+        alert("Perdiste. La palabra era " + palabraSecreta);
+
+    }
+
+}
+
+if (document.getElementById("palabra")) {
+
+    cargarPalabra();
+
+}
