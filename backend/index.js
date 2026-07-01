@@ -111,6 +111,6 @@ app.get("/palabra/:nivel", async(req,res)=>{
         LIMIT 1
     `);
 
-    res.json(palabra[0]);
+    res.send({ palabra: palabra[0] });
 
 });

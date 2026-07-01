@@ -86,22 +86,38 @@ function cerrarSesion() {
 
 }
 
-async function cargarPalabra() {
-
+async function cargarPalabra(nivel) {
     let response = await fetch(`http://localhost:4000/palabra/${nivel}`);
 
     let result = await response.json();
 
-    palabraSecreta = result.palabra.toUpperCase();
+    palabraSecreta = result.palabra.palabra.toUpperCase();
 
     console.log("Palabra secreta:", palabraSecreta);
+    document.getElementById("palabra").setAttribute("maxlength", palabraSecreta.length);
+
+    let tabla = document.getElementById("tablaWordle");
+    tabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
+    let htmlTabla = `<tbody>`;
+    for (let i = 0; i < 5; i++) {
+        htmlTabla += `<tr>`;
+        for (let j = 0; j < palabraSecreta.length; j++) {
+            htmlTabla += `<td id="${i}-${j}"></td>`;
+        }
+        htmlTabla += `</tr>`;
+    }
+    htmlTabla += `</tbody>`;
+
+    tabla.innerHTML = htmlTabla;
+
 
 }
 
 function enviarPalabra() {
 
     let palabra = document.getElementById("palabra").value.toUpperCase();
-
+    console.log("Palabra ingresada por el usuario:", palabra);
+    console.log("Palabra secreta:", palabraSecreta);
     if (palabra.length != palabraSecreta.length) {
 
         alert("Cantidad de letras incorrecta");
@@ -148,11 +164,5 @@ function enviarPalabra() {
         alert("Perdiste. La palabra era " + palabraSecreta);
 
     }
-
-}
-
-if (document.getElementById("palabra")) {
-
-    cargarPalabra();
 
 }

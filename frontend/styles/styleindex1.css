@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <link rel="stylesheet" href="styles/styleindex1.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal</title>
-    <style>
         * {
             box-sizing: border-box;
             margin: 0;
@@ -85,18 +77,3 @@
         .btn-logout:hover {
             background-color: #35384e;
         }
-    </style>
-</head>
-<body>
-
-    <h1>Seleccioná la Dificultad</h1>
-
-    <div class="menu-container">
-        <button class="btn-facil" onclick="window.location.href='indexfacil.html'">Facil</button>
-        <button    class="btn-dificil" onclick="window.location.href='indexdificil.html'">Dificil</button>
-    </div>
-
-    <button class="btn btn-logout" onclick="window.location.href='index.html'">Cerrar Sesión</button>
-
-</body>
-</html>

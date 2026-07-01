@@ -3,59 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>GOLWORDLE</title>
+    <link rel="stylesheet" href="styles/stylefacil.css">
 </head>
-<body>
+<body onload="cargarPalabra(1)">
 
     <h1>GOLWORDLE</h1>
-
-    <table border="1">
-        <tr>
-            <td id="0-0"></td>
-            <td id="0-1"></td>
-            <td id="0-2"></td>
-            <td id="0-3"></td>
-            <td id="0-4"></td>
-        </tr>
-        <tr>
-            <td id="1-0"></td>
-            <td id="1-1"></td>
-            <td id="1-2"></td>
-            <td id="1-3"></td>
-            <td id="1-4"></td>
-        </tr>
-        <tr>
-            <td id="2-0"></td>
-            <td id="2-1"></td>
-            <td id="2-2"></td>
-            <td id="2-3"></td>
-            <td id="2-4"></td>
-        </tr>
-        <tr>
-            <td id="3-0"></td>
-            <td id="3-1"></td>
-            <td id="3-2"></td>
-            <td id="3-3"></td>
-            <td id="3-4"></td>
-        </tr>
-        <tr>
-            <td id="4-0"></td>
-            <td id="4-1"></td>
-            <td id="4-2"></td>
-            <td id="4-3"></td>
-            <td id="4-4"></td>
-        </tr>
-        <tr>
-            <td id="5-0"></td>
-            <td id="5-1"></td>
-            <td id="5-2"></td>
-            <td id="5-3"></td>
-            <td id="5-4"></td>
-        </tr>
+<div class="table-facil">
+    <table id="tablaWordle" border="1">
+        
     </table>
-
+</div>
     <br>
 
-    <input type="text" id="palabra" maxlength="5" placeholder="Escribí una palabra">
+    <input type="text" id="palabra" placeholder="Escribí una palabra">
 
     <button onclick="enviarPalabra()">
         Intentar

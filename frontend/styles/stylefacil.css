@@ -1,0 +1,83 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: #121213;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 45px;
+    letter-spacing: 3px;
+}
+
+.table-facil{
+    display: flex;
+    justify-content: center;
+}
+
+table{
+    border-collapse: separate;
+    border-spacing: 6px;
+}
+
+td{
+    width: 70px;
+    height: 70px;
+    background-color: #121213;
+    border: 3px solid #3a3a3c;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 35px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+input{
+    margin-top: 25px;
+    width: 220px;
+    height: 40px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+}
+
+button{
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-weight: bold;
+    background-color: #538d4e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #6aaa64;
+}
+
+#mensaje{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.verde{
+    background-color: #6aaa64;
+}
+
+.amarillo{
+    background-color: #c9b458;
+}
+
+.gris{
+    background-color: #787c7e;
+}
